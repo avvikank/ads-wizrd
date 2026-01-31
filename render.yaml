@@ -1,0 +1,28 @@
+services:
+  # Backend Service
+  - type: web
+    name: ads-wizrd-api
+    runtime: docker
+    plan: free
+    envVars:
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: PORT
+        value: 10000
+    dockerContext: .
+    dockerfilePath: Dockerfile
+
+  # Frontend Service
+  - type: web
+    name: ads-wizrd-ui
+    runtime: node
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm run start
+    publishDir: frontend/.next
+    envVars:
+      - key: NEXT_PUBLIC_API_URL
+        fromService:
+          type: web
+          name: ads-wizrd-api
+          property: host

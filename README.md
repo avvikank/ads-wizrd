@@ -17,15 +17,31 @@ An expert-grade AI system for analyzing Meta ads and generating high-performance
 ## 📦 Deployment Instructions
 Please refer to the [Deployment Guide](./brain/deployment_guide.md) for step-by-step instructions on hosting this application on Vercel and Render.
 
-## Setup Instructions
+## 🛠️ Prerequisites
+- **Python 3.10+**
+- **Node.js 18+**
+- **Google Gemini API Key** (Get one at [Google AI Studio](https://aistudio.google.com/))
 
-### Backend
-1. Navigate to the root folder.
-2. Install Python dependencies:
+## ⚙️ Setup Instructions
+
+### 1. Backend (FastAPI)
+1. Navigate to the project root.
+2. Create and activate a virtual environment (optional but recommended):
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows: .\venv\Scripts\activate
+   ```
+3. Install dependencies:
    ```bash
    pip install -r requirements.txt
+   playwright install chromium # Required for ad scraping
    ```
-3. Run the server:
+4. Create a `.env` file from the example:
+   ```bash
+   cp .env.example .env
+   ```
+5. Add your `GEMINI_API_KEY` to the `.env` file.
+6. Start the backend:
    ```bash
    uvicorn app.main:app --reload
    ```
