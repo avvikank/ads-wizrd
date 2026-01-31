@@ -10,3 +10,4 @@ google-generativeai
 python-dotenv
 playwright
 playwright-stealth
+lxml_html_clean
