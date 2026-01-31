@@ -4,30 +4,18 @@ WORKDIR /app
 
 # Install system dependencies for Playwright
 RUN apt-get update && apt-get install -y \
-    libnss3 \
-    libnspr4 \
-    libatk1.0-0 \
-    libatk-bridge2.0-0 \
-    libcups2 \
-    libdrm2 \
-    libxkbcommon0 \
-    libxcomposite1 \
-    libxdamage1 \
-    libxext6 \
-    libxfixes3 \
-    librandr2 \
-    libgbm1 \
-    libasound2 \
-    libpangocairo-1.0-0 \
-    libm17n-0 \
-    libfontconfig1 \
-    libxshmfence1 \
+    wget \
+    gnupg \
     && rm -rf /var/lib/apt/lists/*
 
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
+
+# Install Playwright dependencies and chromium
+RUN playwright install-deps
 RUN playwright install chromium
 
 COPY . .
 
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+# Use port 10000 to match render.yaml default
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "10000"]
