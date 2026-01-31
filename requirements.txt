@@ -1,0 +1,12 @@
+fastapi
+uvicorn
+pydantic
+requests
+trafilatura
+beautifulsoup4
+pytest
+python-multipart
+google-generativeai
+python-dotenv
+playwright
+playwright-stealth
